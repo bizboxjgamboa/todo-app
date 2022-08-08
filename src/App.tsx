@@ -5,6 +5,7 @@ const App = (): JSX.Element => {
   return (
     <div className='App'>
       <Outlet />
+      Test
     </div>
   );
 };
