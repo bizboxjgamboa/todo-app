@@ -1,7 +1,23 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { useTodosContextUpdate, ITodo } from '../context/TodosContext';
 
 const NewTodoForm = (): JSX.Element => {
+
+  const updateTodos = useTodosContextUpdate();
+  const addNewTodo = (text: string): void => {
+    updateTodos((prev: ITodo[] | []) => {
+      return [
+        ...prev,
+        {
+          id: Date.now(),
+          todo: text,
+          done: false,
+        }
+      ];
+    });
+  };
+
   const formik = useFormik({
     initialValues: {
       todo: '',
@@ -11,12 +27,13 @@ const NewTodoForm = (): JSX.Element => {
         .max(40, 'Must be 40 characters or less')
         .required('Text input is required'),
     }),
-    onSubmit: (values, { resetForm} ) => {
+    onSubmit: (values, { resetForm }) => {
       console.log(values);
+      addNewTodo(values.todo);
       resetForm();
     },
   });
-  
+
   return (
     <div className='NewTodoForm'>
       <form onSubmit={formik.handleSubmit}>

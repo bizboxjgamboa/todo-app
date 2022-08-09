@@ -1,113 +1,47 @@
-// import { useEffect } from 'react';
-// import {
-//   useTodosContext,
-//   useTodosContextUpdate,
-// } from '../context/TodosContext';
+import {
+  useTodosContext,
+  useTodosContextUpdate,
+} from '../context/TodosContext';
 
 const Todos = (): JSX.Element => {
-  // const todoList = useTodosContext();
-  // const updateTodoList = useTodosContextUpdate();
-  // console.log(todoList);
+  const todolist = useTodosContext();
+  const updateList = useTodosContextUpdate();
 
-  // useEffect(() => {
-  //   updateTodoList([]);
-  // }, []);
+  const toggleTodo = (id: string | number): void => {
+    updateList([
+      ...todolist.map((item) =>
+        item.id === id ? { ...item, done: !item.done } : item,
+      ),
+    ]);
+  };
+
+  const deleteTodo = (id: string | number): void => {
+    updateList([...todolist.filter((item) => item.id !== id)]);
+  };
+
+  console.log(todolist);
 
   return (
     <div className='Todos'>
-      <h2>Todo List</h2>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente culpa
-        placeat qui sed nulla similique earum laboriosam modi eos, quibusdam
-        dolorum reprehenderit laudantium cupiditate perferendis autem architecto
-        maiores consequuntur blanditiis!
-      </p>
-      {/* <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1>
-      <h1>Hi from home</h1> */}
+      {todolist.length === 0 ? (
+        <p>empty list, good job</p>
+      ) : (
+        todolist.map((item) => (
+          <div key={item.id} className='todo'>
+            <button
+              className='toggleCheck'
+              title='toggle'
+              onClick={() => toggleTodo(item.id)}
+            >
+              {item.done ? <>&#9989;</> : <>&#10062;</>}
+            </button>
+            <p className={item.done ? 'strikethrough' : ''}>{item.todo}</p>
+            <button className='delete' onClick={() => deleteTodo(item.id)}>
+              Delete
+            </button>
+          </div>
+        ))
+      )}
     </div>
   );
 };

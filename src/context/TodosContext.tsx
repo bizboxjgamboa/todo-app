@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-interface ITodo {
+export interface ITodo {
   id: string | number;
   todo: string;
   done: boolean;
@@ -23,23 +23,30 @@ interface Props {
 
 const TodosContextProvider = ({ children }: Props): JSX.Element => {
   const [todos, setTodos] = useState<ITodo[]>([]);
-
+  const [isUpdatingLocal, setIsUpdatingLocal] = useState<boolean>(false);
+console.log(todos);
   useEffect(() => {
-    // setTodos([
-    //   {
-    //     id: 1,
-    //     todo: 'play dota 2',
-    //     done: false
-    //   }
-    // ]);
     const todolist = localStorage.getItem('todolist');
     if (todolist === null) {
-      console.log('empty')
-      // localStorage.setItem('todolist')
-
+      console.log('empty');
+      localStorage.setItem('todolist', JSON.stringify([]));
+    } else {
+      console.log('getting local');
+      setTodos([...JSON.parse(todolist)]);
     }
-
   }, []);
+
+  useEffect(() => {
+    console.log('list state got updated');
+    setIsUpdatingLocal(true);
+  }, [todos]);
+
+  useEffect(() => {
+    if (isUpdatingLocal) {
+      localStorage.setItem('todolist', JSON.stringify(todos));
+      setIsUpdatingLocal(false);
+    }
+  }, [isUpdatingLocal, todos]);
 
   return (
     <TodosContext.Provider value={todos}>

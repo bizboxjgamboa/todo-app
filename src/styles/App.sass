@@ -4,13 +4,8 @@ $background: darken($foreground, $percent)
 $accent: hsl(207, 90%, 54%)
 $text: lighten(black, $percent)
 
-h2
-  font-weight: 600
-  font-size: 1.3rem
-
 button, input, .App
   font-family: 'Poppins', sans-serif
-
   
 .App
   display: flex
@@ -54,15 +49,14 @@ button, input, .App
     flex: 1
     max-height: 100%
     padding-top: 3rem
-    background-color: $background
+    background-color: $foreground
     overflow: auto
 
     > *
       margin: 0 2rem 2rem 2rem
 
-.Todos
-  background-color: green
-  padding-bottom: 2rem
+    button
+      cursor: pointer
 
 .NewTodoForm
   form
@@ -95,4 +89,35 @@ button, input, .App
     small
       margin-left: 1rem
       color: tomato
-  
+
+.Todos
+  padding-bottom: 2rem
+  display: flex
+  flex-direction: column
+
+  .todo
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 1rem 0
+    margin: .5rem 0
+    border-top: 1px solid $background
+
+    p
+      flex: 1
+      margin-left: 1rem
+      margin-right: 1rem
+
+    button
+      padding: .3rem
+      border: 0
+      font-size: 1rem
+
+      &.delete
+        color: tomato
+
+    .strikethrough
+      text-decoration: line-through
+      color: lighten($text, 60%)
+
+
