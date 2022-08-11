@@ -5,7 +5,7 @@ const Header = (): JSX.Element => {
 
   return (
     <header className='Header'>
-      <h1>TODO</h1>
+      <h1>TODO APP</h1>
       <nav>
         {location === '/' ? (
           <NavLink to='add' title='add new todo'>
