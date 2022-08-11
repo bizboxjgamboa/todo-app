@@ -24,20 +24,16 @@ interface Props {
 const TodosContextProvider = ({ children }: Props): JSX.Element => {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const [isUpdatingLocal, setIsUpdatingLocal] = useState<boolean>(false);
-console.log(todos);
   useEffect(() => {
     const todolist = localStorage.getItem('todolist');
     if (todolist === null) {
-      console.log('empty');
       localStorage.setItem('todolist', JSON.stringify([]));
     } else {
-      console.log('getting local');
       setTodos([...JSON.parse(todolist)]);
     }
   }, []);
 
   useEffect(() => {
-    console.log('list state got updated');
     setIsUpdatingLocal(true);
   }, [todos]);
 

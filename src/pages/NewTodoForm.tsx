@@ -3,7 +3,6 @@ import * as Yup from 'yup';
 import { useTodosContextUpdate, ITodo } from '../context/TodosContext';
 
 const NewTodoForm = (): JSX.Element => {
-
   const updateTodos = useTodosContextUpdate();
   const addNewTodo = (text: string): void => {
     updateTodos((prev: ITodo[] | []) => {
@@ -13,7 +12,7 @@ const NewTodoForm = (): JSX.Element => {
           id: Date.now(),
           todo: text,
           done: false,
-        }
+        },
       ];
     });
   };
@@ -24,11 +23,10 @@ const NewTodoForm = (): JSX.Element => {
     },
     validationSchema: Yup.object({
       todo: Yup.string()
-        .max(40, 'Must be 40 characters or less')
-        .required('Text input is required'),
+        .max(40, 'Error: Must be 40 characters or less')
+        .required('Error: Text input is required'),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       addNewTodo(values.todo);
       resetForm();
     },

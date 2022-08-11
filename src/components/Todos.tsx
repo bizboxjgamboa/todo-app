@@ -19,14 +19,12 @@ const Todos = (): JSX.Element => {
     updateList([...todolist.filter((item) => item.id !== id)]);
   };
 
-  console.log(todolist);
-
   return (
     <div className='Todos'>
       {todolist.length === 0 ? (
         <p>empty list, good job</p>
       ) : (
-        todolist.map((item) => (
+        todolist.map((item) => ( 
           <div key={item.id} className='todo'>
             <button
               className='toggleCheck'
